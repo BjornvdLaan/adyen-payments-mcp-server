@@ -51,3 +51,6 @@ If you just want to test this tool out then the MCP Inspector is a great option:
 ```bash
 npx @modelcontextprotocol/inspector java -jar build/libs/adyen-payments-mcp-server-1.0-SNAPSHOT.jar
 ```
+
+If you want to use the `get_payment_methods` tool then make sure to add the `ADYEN_API_KEY` env variable (see the left sidebar below).
+![Example screen in mcpinspector](images/mcpinspector-example.png)
