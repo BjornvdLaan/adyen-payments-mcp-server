@@ -1,0 +1,29 @@
+{
+  "name": "Java 21 + Gradle (Kotlin DSL)",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "features": {
+    "ghcr.io/devcontainers/features/gradle:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "vscjava.vscode-java-pack",
+        "richardwillis.vscode-gradle"
+      ],
+      "settings": {
+        "java.import.gradle.wrapper.enabled": true,
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-21",
+            "path": "/usr/lib/jvm/java-21-openjdk",
+            "default": true
+          }
+        ]
+      }
+    }
+  },
+  "postCreateCommand": "./gradlew build || true",
+  "remoteUser": "vscode"
+}
