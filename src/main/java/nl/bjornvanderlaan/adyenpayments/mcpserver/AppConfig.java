@@ -4,6 +4,9 @@ import com.adyen.enums.Environment;
 
 import java.util.Arrays;
 
+/**
+ * Don't copy this pattern. I just try to make it easy to run this server even without environment variables.
+ */
 public class AppConfig {
     private static final String API_KEY_ENV_VAR = "ADYEN_API_KEY";
     private static final String API_ENVIRONMENT_ENV_VAR = "ADYEN_ENVIRONMENT";
@@ -31,22 +34,17 @@ public class AppConfig {
         if (apiKey == null || apiKey.isEmpty()) {
             System.err.println("Warning: API key not found in environment variables.");
             return "NOT A REAL KEY";
-            //throw new IllegalStateException("The API key is not found");
         }
         return apiKey;
     }
 
     private String loadApiEnvironment() {
         String apiEnvironment = System.getenv(API_ENVIRONMENT_ENV_VAR);
-        if (apiEnvironment == null || apiEnvironment.isEmpty()) {
-            System.err.println("API environment not found in environment variables.");
-            return "TEST";
-            //throw new IllegalStateException("The API environment is not found");
+        if (apiEnvironment == null || apiEnvironment.isEmpty() || !isValidApiEnvironment(apiEnvironment)) {
+            System.err.println("API environment not found in environment variables. Using TEST environment.");
+            return Environment.TEST.name();
         }
-        if (!isValidApiEnvironment(apiEnvironment)) {
-            return "TEST";
-            //throw new IllegalStateException("The API environment is not valid");
-        }
+
         return apiEnvironment;
     }
 

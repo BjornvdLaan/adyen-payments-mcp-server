@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    java
     application
 }
 
@@ -10,11 +10,25 @@ repositories {
     mavenCentral()
 }
 
-application {
-    mainClass.set("nl.bjornvanderlaan.adyenpayments.mcpserver.AdyenMcpServer")
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
-val langchain4jVersion = "0.25.0"
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "nl.bjornvanderlaan.adyenpayments.mcpserver.AdyenMcpServer"
+    }
+
+    from({
+        configurations.runtimeClasspath.get().map {
+            if (it.isDirectory) it else zipTree(it)
+        }
+    })
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 dependencies {
     // MCP
